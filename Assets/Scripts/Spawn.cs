@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
@@ -19,7 +20,7 @@ public class Spawn : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        topRight = cam.ViewportToWorldPoint(new Vector3(1f, 1f, cam.nearClipPlane));
+        topRight = cam.ViewportToWorldPoint(new Vector3(1f, 0.9f, cam.nearClipPlane));
         bottomLeft = cam.ViewportToWorldPoint(new Vector3(0f, 0.1f, cam.nearClipPlane));
 
         topY = topRight.y;
@@ -27,11 +28,6 @@ public class Spawn : MonoBehaviour
         midY = (topY + bottomY) / 2;
 
         destroyerCollider = destroyer.GetComponent<BoxCollider2D>();
-        if (destroyerCollider)
-        {
-            Debug.Log("destroyer collider found");
-        }
-
         StartCoroutine(SpawnLoop());
     }
 
@@ -44,9 +40,30 @@ public class Spawn : MonoBehaviour
 
     void SpawnLaser()
     {
-        float length = Random.Range(2.5f, 6f);
-        float angle = Random.Range(0f, 180f);
-        float yPos = Random.Range(topY, bottomY);
+        float angle = UnityEngine.Random.Range(0f, 180f);
+        float angleRad = math.radians(angle);
+        float sinAngle = math.max(0.1f, math.sin(angleRad));
+
+        float yPos = UnityEngine.Random.Range(topY, bottomY);
+        float maxHeight = math.min(topY - yPos, yPos - bottomY);
+
+        float randomLen = UnityEngine.Random.Range(2.5f, 6f);
+        float length = math.min(randomLen, maxHeight / sinAngle);
+
+
+        Debug.Log(@$"Laser no.: {numLasers}
+        Angle: {angle}
+        y Position: {yPos}
+        topY - yPos: {topY - yPos}
+        yPos - bottomY: {yPos - bottomY}
+        MaxHeight: {maxHeight}
+        Random len: {randomLen}
+        Length: {length}");
+        
+        if (length < 1.5f) {
+            Debug.Log($"Skipping spawn - laser {numLasers}");
+            return;
+        }; // skipping spawn if length is too small.
 
         var laser = new GameObject("Laser" + numLasers);
         laser.AddComponent<Laser>();
@@ -54,11 +71,14 @@ public class Spawn : MonoBehaviour
         var sr = laser.AddComponent<SpriteRenderer>();
         sr.sprite = laserSprite;
 
+        
+
+
         laser.transform.rotation = Quaternion.Euler(0, 0, angle);
         laser.transform.localScale = new Vector3(length, 0.5f, 1f);
         laser.transform.position = new Vector3(gameObject.transform.position.x - 2f, yPos, 0);
 
-        
+
     }
 
     IEnumerator SpawnLoop()
@@ -68,7 +88,7 @@ public class Spawn : MonoBehaviour
             SpawnLaser();
             numLasers++;
 
-            yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 3f));
         }
     }
 }

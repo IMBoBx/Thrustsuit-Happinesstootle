@@ -1,8 +1,8 @@
-- Fixing laser heights according to spawn location and angle.
-
-- Sprites.
+- ~~Fixing laser heights according to spawn location and angle.~~
 
 - Score tally.
+
+- Sprites.
 
 - Game speed increase.
 
@@ -10,6 +10,24 @@
 
 - Coin groups.
 
-- At least one powerup hopefully.
+- At least one powerup hopefully. (probably iframes)
 
 - Missiles.
+
+- Main menu / pause system.
+
+- Particle effects (explosions, thruster flames)
+
+---
+
+Maybe these too:
+
+
+- Sound effects and music
+
+- Background parallax scrolling
+
+- High score persistence (PlayerPrefs)
+
+- Screen shake on death
+

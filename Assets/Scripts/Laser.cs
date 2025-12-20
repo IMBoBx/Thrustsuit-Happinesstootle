@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine; 
 
 public class Laser : MonoBehaviour
@@ -11,7 +10,6 @@ public class Laser : MonoBehaviour
     
     void Awake()
     {
-        
         bc2D = gameObject.AddComponent<BoxCollider2D>();
         bc2D.isTrigger = true;
 
