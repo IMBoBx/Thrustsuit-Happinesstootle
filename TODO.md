@@ -2,6 +2,8 @@
 
 - Score tally.
 
+- High score.
+
 - Sprites.
 
 - Game speed increase.

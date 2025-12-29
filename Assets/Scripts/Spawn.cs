@@ -11,7 +11,6 @@ public class Spawn : MonoBehaviour
     float topY, bottomY, midY;
 
     int numLasers = 0;
-    public float speed = 1f;
 
     public GameObject destroyer;
     BoxCollider2D destroyerCollider;

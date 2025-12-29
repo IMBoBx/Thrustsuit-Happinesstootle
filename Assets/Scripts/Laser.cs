@@ -6,10 +6,12 @@ public class Laser : MonoBehaviour
     BoxCollider2D bc2D;
     Rigidbody2D rb2D;
 
-    public float speed = 1f;
+    public float speed;
     
     void Awake()
     {
+        speed = GameManager.Instance.speed;
+
         bc2D = gameObject.AddComponent<BoxCollider2D>();
         bc2D.isTrigger = true;
 
@@ -22,7 +24,8 @@ public class Laser : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Ded by " + name);
+            float score = GameManager.Instance.score;
+            Debug.Log(@$"Game over. Score = {score}.)");
         }
     }
 }
