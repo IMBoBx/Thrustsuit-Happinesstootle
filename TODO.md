@@ -1,12 +1,12 @@
 - ~~Fixing laser heights according to spawn location and angle.~~
 
-- Score tally.
+- ~~Score tally.~~
 
 - High score.
 
 - Sprites.
 
-- Game speed increase.
+- ~~Game speed scaling.~~
 
 - Coins.
 
